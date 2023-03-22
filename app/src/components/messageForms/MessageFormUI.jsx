@@ -1,32 +1,16 @@
-import { XMarkIcon, PaperClipIcon, PaperAirplaneIcon } from '@heroicons/react/24/solid';
+import { PaperAirplaneIcon, PaperClipIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
 
-const StandardMessageForms = ({ props, activeChat }) => {
-	const [message, setMessage] = useState('');
-	const [attachment, setAttachment] = useState('');
+const MessageFormUI = ({
+	setAttachment,
+	message,
+	handleChange,
+	handleSubmit,
+	appendText,
+	handleKeyDown,
+}) => {
 	const [preview, setPreview] = useState('');
-
-	const handleChange = (e) => setMessage(e.target.value);
-
-	const handleSubmit = async () => {
-		const date = new Date()
-			.toISOString()
-			.replace('T', '')
-			.replace('Z', `${Math.floor(Math.random() * 1000)}+00:00`);
-		const at = attachment ? [{ blob: attachment, file: attachment.name }] : [];
-		const form = {
-			attachments: at,
-			created: date,
-			sender_username: props.username,
-			text: message,
-			activeChatId: activeChat.id,
-		};
-
-		props.onSubmit(form);
-		setMessage('');
-		setAttachment('');
-	};
 
 	return (
 		<div className='message-form-container'>
@@ -54,8 +38,17 @@ const StandardMessageForms = ({ props, activeChat }) => {
 						type='text'
 						value={message}
 						onChange={handleChange}
-						placeholder='Send a message ...'
+						onKeyDown={handleKeyDown}
+						placeholder='Send a message...'
 					/>
+					{appendText && (
+						<input
+							className='message-form-assist'
+							type='text'
+							disabled='disabled'
+							value={`${message} ${appendText}`}
+						/>
+					)}
 				</div>
 				<div className='message-form-icons'>
 					<Dropzone
@@ -89,4 +82,4 @@ const StandardMessageForms = ({ props, activeChat }) => {
 	);
 };
 
-export default StandardMessageForms;
+export default MessageFormUI;
