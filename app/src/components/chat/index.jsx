@@ -6,8 +6,8 @@ import Ai from '@/components/messageForms/Ai';
 import AiCode from '@/components/messageForms/AiCode';
 import AiAssist from '@/components/messageForms/AiAssist';
 
-const Chat = () => {
-	const chatProps = useMultiChatLogic(import.meta.env.VITE_PROJECT_ID, 'tester', '1234');
+const Chat = ({ user, secret }) => {
+	const chatProps = useMultiChatLogic(import.meta.env.VITE_PROJECT_ID, user, secret);
 
 	return (
 		<div style={{ flexBasis: '100%' }}>
