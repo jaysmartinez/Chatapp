@@ -1,4 +1,4 @@
-# Chatapp
+# AI-Assisted Chat App
 
 A full-stack chat application built with React and Express. It combines a modern chat interface with an OpenAI-powered backend and third-party chat services.
 
